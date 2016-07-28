@@ -16,8 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private Button hotelSearch;
-    private EditText usrN;
-    EditText passw;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +32,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                usrN = (EditText)findViewById(R.id.username);
-                passw = (EditText)findViewById(R.id.password);
-
-                final String userN = usrN.getText().toString();
-                final String passW = String.valueOf(passw.getText());
-                if(userN.equals("a") && passW.equals("a"))
-                {
-                    Intent classIntent = new Intent(getApplicationContext(), Main2Activity.class);
-                    startActivity(classIntent);
-                }
-                else
-                    Toast.makeText(getApplicationContext(), "Please enter correct credentials", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(getApplicationContext(), "WELCOME!!!", Toast.LENGTH_LONG).show();
+                Intent classIntent = new Intent(getApplicationContext(), Main2Activity.class);
+                startActivity(classIntent);
             }
         });
     }

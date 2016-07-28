@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class Main2Activity extends AppCompatActivity {
 
+    private Helper mydb ;
     private Button BtnSearch;
     private EditText hotelTxt;
     private EditText checkinTxt;
@@ -21,6 +22,8 @@ public class Main2Activity extends AppCompatActivity {
     private EditText roomNum;
     private EditText adultNum;
     private EditText childNum;
+    private EditText contactNo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mydb = new Helper(this);
 
         BtnSearch = (Button)findViewById(R.id.searchBtn);
         BtnSearch.setOnClickListener(new View.OnClickListener()
@@ -46,10 +51,13 @@ public class Main2Activity extends AppCompatActivity {
                 int AdultNo = Integer.parseInt(adultNum.getText().toString());
                 childNum = (EditText)findViewById(R.id.childTxt);
                 int ChildNo = Integer.parseInt(childNum.getText().toString());
+                contactNo = (EditText)findViewById(R.id.contactNo);
+                String contactNum = contactNo.getText().toString();
 
 //
-                if(!((RoomNo == 0) && (AdultNo == 0) && (ChildNo == 0) && (hotelN.equalsIgnoreCase("")) && (checkinT.equalsIgnoreCase("") && checkinT.length() == 9) && (checkoutT.equalsIgnoreCase("") && checkoutT.length() == 9)))
+                if(!((contactNum.equals("")) && (RoomNo == 0) && (AdultNo == 0) && (ChildNo == 0) && (hotelN.equalsIgnoreCase("")) && (checkinT.equalsIgnoreCase("") && checkinT.length() == 9) && (checkoutT.equalsIgnoreCase("") && checkoutT.length() == 9)))
                 {
+                    mydb.insertDetails(hotelN, checkinT, checkoutT, RoomNo, AdultNo, ChildNo, contactNum);
                     Intent viewDetails = new Intent(getApplicationContext(), ViewDetails.class);
                     startActivity(viewDetails);
                 }
