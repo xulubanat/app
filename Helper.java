@@ -23,7 +23,7 @@ public class Helper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase sqLiteDatabase)
     {
         String CREATE_BOOKING_TABLE = "CREATE TABLE bookingDetails( " +
-                "customerID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "customerID INTEGER PRIMARY KEY, " +
                 "hoteN TEXT, " + "checkI TEXT, " + "checkO TEXT, " + "noOfRooms INTEGER, " + "noOfAdults INTEGER, " + "noOfChildren INTEGER, " +
                 "contactNumber TEXT )";
 
@@ -38,10 +38,11 @@ public class Helper extends SQLiteOpenHelper
         this.onCreate(db);
     }
 
-    public boolean insertDetails(String hn, String ci, String co, int nr,int na, int nc, String cn)
+    public boolean insertDetails(int cid, String hn, String ci, String co, int nr,int na, int nc, String cn)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put("customerID", cid);
         contentValues.put("hoteN", hn);
         contentValues.put("checkI", ci);
         contentValues.put("checkO", co);
@@ -50,12 +51,13 @@ public class Helper extends SQLiteOpenHelper
         contentValues.put("noOfChildren", nc);
         contentValues.put("contactNumber", cn);
         db.insert("bookingDetails", null, contentValues);
+        this.getAllDetails();
         return true;
     }
 
     public Cursor getData(int cid){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from bookingDetails where id="+cid+"", null );
+        Cursor res =  db.rawQuery( "select * from bookingDetails where customerID="+cid+"", null );
         return res;
     }
 
@@ -76,7 +78,7 @@ public class Helper extends SQLiteOpenHelper
         contentValues.put("noOfAdults", na);
         contentValues.put("noOfChildren", nc);
         contentValues.put("contactNumber", cn);
-        db.update("bookingDetails", contentValues, "id = ? ", new String[] { Integer.toString(cid) } );
+        db.update("bookingDetails", contentValues, "customerID = ? ", new String[] { Integer.toString(cid) } );
         return true;
     }
 

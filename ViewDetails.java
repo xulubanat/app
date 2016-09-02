@@ -39,10 +39,10 @@ public class ViewDetails extends AppCompatActivity {
         ng = (TextView)findViewById(R.id.guestNums);
         cn = (TextView)findViewById(R.id.contactNum);
 
-
+        int rownum = mydb.numberOfRows();
         Bundle extras = getIntent().getExtras();
-        if(extras !=null) {
-            int Value = extras.getInt("customerID");
+        if(extras == null) {
+            int Value = rownum;//extras.getInt("1");
 
             if (Value > 0) {
 

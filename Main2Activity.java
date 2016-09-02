@@ -1,6 +1,7 @@
 package administrator.myapplication;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -57,7 +58,10 @@ public class Main2Activity extends AppCompatActivity {
 //
                 if(!((contactNum.equals("")) && (RoomNo == 0) && (AdultNo == 0) && (ChildNo == 0) && (hotelN.equalsIgnoreCase("")) && (checkinT.equalsIgnoreCase("") && checkinT.length() == 9) && (checkoutT.equalsIgnoreCase("") && checkoutT.length() == 9)))
                 {
-                    mydb.insertDetails(hotelN, checkinT, checkoutT, RoomNo, AdultNo, ChildNo, contactNum);
+                    int rownum = mydb.numberOfRows();
+                    mydb.insertDetails(rownum++,hotelN, checkinT, checkoutT, RoomNo, AdultNo, ChildNo, contactNum);
+                    Bundle extras = getIntent().getExtras();
+
                     Intent viewDetails = new Intent(getApplicationContext(), ViewDetails.class);
                     startActivity(viewDetails);
                 }
